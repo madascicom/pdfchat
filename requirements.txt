@@ -4,3 +4,4 @@ openai
 tiktoken
 pypdf
 torch
+pip install sentence_transformers
