@@ -66,8 +66,8 @@ class PrintRetrievalHandler(BaseCallbackHandler):
             self.container.markdown(doc.page_content)
 
 
-HUGGINGFACEHUB_API_TOKEN = st.sidebar.text_input("Hugging Face Token", type="password")
-if not HUGGINGFACEHUB_API_TOKEN:
+huggingfacehub_api_token = st.sidebar.text_input("Hugging Face Token", type="password")
+if not huggingfacehub_api_token:
     st.info("Please add your Hugging Face Token")
     st.stop()
 
