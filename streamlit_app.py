@@ -106,4 +106,4 @@ if user_query:
         retrieval_handler = PrintRetrievalHandler(st.container())
         stream_handler = StreamHandler(st.empty())
         response = qa_chain.run(user_query, callbacks=[stream_handler])
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.write(response)
