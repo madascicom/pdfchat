@@ -104,6 +104,7 @@ for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 user_query = st.chat_input(placeholder="Adresează o întrebare!")
+real_query = f"{user_query} Give as much context about the answer as possible. If you cannot find the answer in the documents, say that you don't know the answer."
 
 if user_query:
     st.session_state.messages.append({"role": "user", "content": user_query})
@@ -112,7 +113,7 @@ if user_query:
     with st.chat_message("assistant"):
         retrieval_handler = PrintRetrievalHandler(st.container())
         stream_handler = StreamHandler(st.empty())
-        response = qa_chain.run(user_query, callbacks=[stream_handler, retrieval_handler])
+        response = qa_chain.run(real_query, callbacks=[stream_handler, retrieval_handler])
         st.write(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
