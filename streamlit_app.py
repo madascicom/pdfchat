@@ -76,7 +76,7 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 huggingfacehub_api_token = st.sidebar.text_input("token_personal", type="password")
 if not huggingfacehub_api_token:
-    st.info("Pasul 1: Te rog adaugă token_personal obținut la workshop")
+    st.info("Pasul 1: Te rog adaugă token_personal obținut la workshop în bara din stânga (pe laptop). Pe mobil, apasă pe semnul > din stânga sus.")
     st.stop()
 
 uploaded_files = st.sidebar.file_uploader(
