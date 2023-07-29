@@ -15,13 +15,11 @@ from langchain.chains import RetrievalQA
 st.set_page_config(page_title="Workshop AI: Chat cu propriile documente", page_icon="🤖")
 st.title("Chat cu propriile documente")
 st.markdown("""
-Interfață pentru participanții la Workshopul "AI cu propriile documente".
+Interfață pentru participanții la <a href=http://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Workshopul "AI cu propriile documente".</a>
 
-Vrei să înveți și tu cum să „vorbești” cu propriile documente?
+Nu uita: Această aplicație este utilă pentru a afla detalii din pdf-urile tale, nu pentru sumarizare.
 
-<a href=http://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Înscrie-te aici.</a>
-
-Nu uita! Această aplicație este utilă pentru a afla detalii din pdf-uri, nu pentru o vedere de ansamblu sau sumarizare.
+Aplicația îți arată și sursele din care a dedus răspunsul, așa că dacă ai dubii, poți verifica adevărul.
 """, unsafe_allow_html=True)
 
 
@@ -63,7 +61,7 @@ class StreamHandler(BaseCallbackHandler):
 
 class PrintRetrievalHandler(BaseCallbackHandler):
     def __init__(self, container):
-        self.container = container.expander("Context Retrieval")
+        self.container = container.expander("Surse răspuns")
 
     def on_retriever_start(self, query: str, **kwargs):
         self.container.write(f"**Question:** {query}")
@@ -105,7 +103,7 @@ if "messages" not in st.session_state or st.sidebar.button("Clear message histor
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
-user_query = st.chat_input(placeholder="Ask me anything!")
+user_query = st.chat_input(placeholder="Adresează o întrebare!")
 
 if user_query:
     st.session_state.messages.append({"role": "user", "content": user_query})
