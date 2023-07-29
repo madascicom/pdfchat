@@ -105,5 +105,5 @@ if user_query:
     with st.chat_message("assistant"):
         retrieval_handler = PrintRetrievalHandler(st.container())
         stream_handler = StreamHandler(st.empty())
-        response = qa_chain.run(user_query, callbacks=[stream_handler])
+        response = qa_chain.run(user_query, callbacks=[stream_handler, retrieval_handler])
         st.write(response)
