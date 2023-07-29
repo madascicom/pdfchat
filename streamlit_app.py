@@ -15,7 +15,7 @@ from langchain.chains import RetrievalQA
 st.set_page_config(page_title="Workshop AI: Chat cu propriile documente", page_icon="🤖")
 st.title("Chat cu propriile documente")
 st.markdown("""
-Interfață pentru participanții la <a href=http://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Workshopul "AI cu propriile documente".</a>
+Interfață pentru participanții la <a href=https://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Workshopul "AI cu propriile documente".</a>
 
 Nu uita: Această aplicație este utilă pentru a afla detalii din pdf-urile tale, nu pentru sumarizare.
 
