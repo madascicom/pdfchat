@@ -12,7 +12,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain import HuggingFaceHub
 
 st.set_page_config(page_title="Mada LangChain: Chat with Documents", page_icon="🦜")
-st.title("🦜 HF Mada LangChain: Chat with Documents")
+st.title("🦜 HF2 Mada LangChain: Chat with Documents")
 
 
 @st.cache_resource(ttl="1h")
@@ -81,28 +81,28 @@ if not uploaded_files:
 retriever = configure_retriever(uploaded_files)
 
 # Setup memory for contextual conversation
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+#memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 # Setup LLM and QA chain
 llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", huggingfacehub_api_token=huggingfacehub_api_token, model_kwargs={"temperature":0, "max_length":512})
-qa_chain = ConversationalRetrievalChain.from_llm(
-    llm, retriever=retriever, memory=memory, verbose=True
+qa_chain = RetrievalQA.from_llm(
+    llm, retriever=retriever, verbose=True
 )
 
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    st.session_state["messages"] = "How can I help you?"
 
 for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
+    st.chat_message.write(msg["content"])
 
 user_query = st.chat_input(placeholder="Ask me anything!")
 
 if user_query:
-    st.session_state.messages.append({"role": "user", "content": user_query})
+    st.session_state.messages.append(user_query)
     st.chat_message("user").write(user_query)
 
-    with st.chat_message("assistant"):
+    with st.chat_message:
         retrieval_handler = PrintRetrievalHandler(st.container())
         stream_handler = StreamHandler(st.empty())
         response = qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append(response)
