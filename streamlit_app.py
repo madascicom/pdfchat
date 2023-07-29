@@ -84,7 +84,7 @@ retriever = configure_retriever(uploaded_files)
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 # Setup LLM and QA chain
-llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", model_kwargs={"temperature":0, "max_length":512})
+llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", huggingfacehub_api_token=huggingfacehub_api_token, model_kwargs={"temperature":0, "max_length":512})
 qa_chain = ConversationalRetrievalChain.from_llm(
     llm, retriever=retriever, memory=memory, verbose=True
 )
