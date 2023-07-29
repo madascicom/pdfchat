@@ -12,19 +12,19 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain import HuggingFaceHub
 from langchain.chains import RetrievalQA
 
-st.set_page_config(page_title="Workshop AI: Chat cu propriile documente", page_icon="🦜")
+st.set_page_config(page_title="Workshop AI: Chat cu propriile documente", page_icon="🤖")
 st.title("Chat cu propriile documente")
 st.markdown("""
-Interfață pentru participanții la Workshopul "AI cu propriile documente".<br/>
-Vrei să înveți și tu cum să „vorbești” cu propriile documente?<br/>
+Interfață pentru participanții la Workshopul "AI cu propriile documente".
+Vrei să înveți și tu cum să „vorbești” cu propriile documente?
 <a href=http://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Înscrie-te aici.</a>
-""", unsafe_allow_html=True<br/>
 ## Pasul 1
             Paste la token_personal obținut la workshop
 ## Pasul 2
             Încarcă pdf-urile tale
 
 Nu uita! Această aplicație este utilă pentru a afla detalii din pdf-uri, nu pentru o vedere de ansamblu sau sumarizare.)
+""", unsafe_allow_html=True)
 
 
 @st.cache_resource(ttl="1h")
