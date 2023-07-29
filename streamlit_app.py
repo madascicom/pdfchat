@@ -9,9 +9,10 @@ from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chains import ConversationalRetrievalChain
 from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain import HuggingFaceHub
 
 st.set_page_config(page_title="Mada LangChain: Chat with Documents", page_icon="🦜")
-st.title("🦜 LangChain: Chat with Documents")
+st.title("🦜 HF Mada LangChain: Chat with Documents")
 
 
 @st.cache_resource(ttl="1h")
@@ -27,7 +28,7 @@ def configure_retriever(uploaded_files):
         docs.extend(loader.load())
 
     # Split documents
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     splits = text_splitter.split_documents(docs)
 
     # Create embeddings and store in vectordb
@@ -83,9 +84,7 @@ retriever = configure_retriever(uploaded_files)
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 # Setup LLM and QA chain
-llm = ChatOpenAI(
-    model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, temperature=0, streaming=True
-)
+llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", model_kwargs={"temperature":0, "max_length":512})
 qa_chain = ConversationalRetrievalChain.from_llm(
     llm, retriever=retriever, memory=memory, verbose=True
 )
