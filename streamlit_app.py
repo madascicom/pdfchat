@@ -15,11 +15,16 @@ from langchain.chains import RetrievalQA
 st.set_page_config(page_title="Workshop AI: Chat cu propriile documente", page_icon="🦜")
 st.title("Chat cu propriile documente")
 st.markdown("""
-# My Streamlit App
 Interfață pentru participanții la Workshopul "AI cu propriile documente".<br/>
-Dacă vreți să învățați cum să vorbiți cu propriile voastre documente, <a href="http://comunicarestiintifica.ro/workshop-ai-module-avansate/" target="_blank">înscrieți-vă la workshopurile Știință și comunicare</a>.
-""", unsafe_allow_html=True)
+Vrei să înveți și tu cum să „vorbești” cu propriile documente?<br/>
+<a href=http://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Înscrie-te aici.</a>
+""", unsafe_allow_html=True<br/>
+## Pasul 1
+            Paste la token_personal obținut la workshop
+## Pasul 2
+            Încarcă pdf-urile tale
 
+Nu uita! Această aplicație este utilă pentru a afla detalii din pdf-uri, nu pentru o vedere de ansamblu sau sumarizare.)
 
 
 @st.cache_resource(ttl="1h")
