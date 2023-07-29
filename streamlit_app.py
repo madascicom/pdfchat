@@ -16,12 +16,11 @@ st.set_page_config(page_title="Workshop AI: Chat cu propriile documente", page_i
 st.title("Chat cu propriile documente")
 st.markdown("""
 Interfață pentru participanții la Workshopul "AI cu propriile documente".
+
 Vrei să înveți și tu cum să „vorbești” cu propriile documente?
+
 <a href=http://comunicarestiintifica.ro/workshop-ai-module-avansate/ target=_blank>Înscrie-te aici.</a>
-### Pasul 1
-Paste la token_personal obținut la workshop
-### Pasul 2
-Încarcă pdf-urile tale
+
 Nu uita! Această aplicație este utilă pentru a afla detalii din pdf-uri, nu pentru o vedere de ansamblu sau sumarizare.
 """, unsafe_allow_html=True)
 
@@ -79,14 +78,14 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 huggingfacehub_api_token = st.sidebar.text_input("token_personal", type="password")
 if not huggingfacehub_api_token:
-    st.info("Te rog adaugă token_personal obținut la workshop")
+    st.info("Pasul 1: Te rog adaugă token_personal obținut la workshop")
     st.stop()
 
 uploaded_files = st.sidebar.file_uploader(
     label="Upload PDF files", type=["pdf"], accept_multiple_files=True
 )
 if not uploaded_files:
-    st.info("Încarcă unul sau mai multe PDF-uri")
+    st.info("Pasul 2: Încarcă unul sau mai multe PDF-uri")
     st.stop()
 
 retriever = configure_retriever(uploaded_files)
