@@ -91,19 +91,19 @@ qa_chain = RetrievalQA.from_llm(
 )
 
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
-    st.session_state["messages"] = "How can I help you?"
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 for msg in st.session_state.messages:
-    st.chat_message.write(msg["content"])
+    st.chat_message(msg["role"]).write(msg["content"])
 
 user_query = st.chat_input(placeholder="Ask me anything!")
 
 if user_query:
-    st.session_state.messages.append(user_query)
+    st.session_state.messages.append({"role": "user", "content": user_query})
     st.chat_message("user").write(user_query)
 
-    with st.chat_message:
+    with st.chat_message("assistant"):
         retrieval_handler = PrintRetrievalHandler(st.container())
         stream_handler = StreamHandler(st.empty())
         response = qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
-        st.session_state.messages.append(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
