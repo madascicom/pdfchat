@@ -66,9 +66,9 @@ class PrintRetrievalHandler(BaseCallbackHandler):
             self.container.markdown(doc.page_content)
 
 
-openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.")
+HUGGINGFACEHUB_API_TOKEN = st.sidebar.text_input("Hugging Face Token", type="password")
+if not HUGGINGFACEHUB_API_TOKEN:
+    st.info("Please add your Hugging Face Token")
     st.stop()
 
 uploaded_files = st.sidebar.file_uploader(
