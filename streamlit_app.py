@@ -64,6 +64,7 @@ class PrintRetrievalHandler(BaseCallbackHandler):
             self.container.write(f"**Document {idx} from {source}**")
             self.container.markdown(doc.page_content)
 
+openai_api_key = st.secrets("openai_api_key")
 
 uploaded_files = st.sidebar.file_uploader(
     label="Upload PDF files", type=["pdf"], accept_multiple_files=True
