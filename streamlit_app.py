@@ -10,9 +10,9 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-st.set_page_config(page_title="Mada LangChain: Chat with Documents", page_icon="🦜")
-st.title("🦜 LangChain: Chat with Documents")
-
+st.set_page_config(page_title="Workshop AI: Chat cu documente folosind ChatGPT 3,5", page_icon="🦜")
+st.title("Documente ChatGPT")
+st.write ("Oferit gratuit participanților la Workshop AI până pe 7 august")
 
 @st.cache_resource(ttl="1h")
 def configure_retriever(uploaded_files):
@@ -64,11 +64,6 @@ class PrintRetrievalHandler(BaseCallbackHandler):
             self.container.write(f"**Document {idx} from {source}**")
             self.container.markdown(doc.page_content)
 
-
-openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.")
-    st.stop()
 
 uploaded_files = st.sidebar.file_uploader(
     label="Upload PDF files", type=["pdf"], accept_multiple_files=True
