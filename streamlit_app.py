@@ -70,7 +70,7 @@ uploaded_files = st.sidebar.file_uploader(
     label="Upload PDF files", type=["pdf"], accept_multiple_files=True
 )
 if not uploaded_files:
-    st.info("Please upload PDF documents to continue.")
+    st.info("Uploadează pdf-uri. Bara din stânga pe laptop sau apasă pe semnul > din stânga sus pe mobil.")
     st.stop()
 
 retriever = configure_retriever(uploaded_files)
