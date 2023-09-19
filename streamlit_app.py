@@ -93,28 +93,35 @@ retriever = configure_retriever(uploaded_files)
 
 # Setup LLM and QA chain
 llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", huggingfacehub_api_token=huggingfacehub_api_token, model_kwargs={"temperature":0, "max_length":512})
+qa_chain = ConversationalRetrievalChain.from_llm(
 qa_chain = RetrievalQA.from_llm(
+    llm, retriever=retriever, memory=memory, verbose=True
     llm, retriever=retriever, verbose=True
 )
-
+)
+if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
+    msgs.clear()
+    msgs.add_ai_message("How can I help you?")
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
-
+avatars = {"human": "user", "ai": "assistant"}
+for msg in msgs.messages:
 for msg in st.session_state.messages:
+    st.chat_message(avatars[msg.type]).write(msg.content)
     st.chat_message(msg["role"]).write(msg["content"])
-
+if user_query := st.chat_input(placeholder="Ask me anything!"):
 user_query = st.chat_input(placeholder="Adresează o întrebare!")
 real_query = f"{user_query} Give as much context about the answer as possible. If you cannot find the answer in the documents, say that you don't know the answer."
-
 if user_query:
     st.session_state.messages.append({"role": "user", "content": user_query})
     st.chat_message("user").write(user_query)
-
+    st.chat_message("user").write(user_query)
+    with st.chat_message("assistant"):
     with st.chat_message("assistant"):
         retrieval_handler = PrintRetrievalHandler(st.container())
+        retrieval_handler = PrintRetrievalHandler(st.container())
         stream_handler = StreamHandler(st.empty())
-        response = qa_chain.run(real_query, callbacks=[stream_handler, retrieval_handler])
-        st.write(response)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        stream_handler = StreamHandler(st.empty())
+        response = qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
 
 
