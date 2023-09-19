@@ -6,3 +6,4 @@ pypdf
 torch
 sentence_transformers
 langchain[docarray]
+docarray
